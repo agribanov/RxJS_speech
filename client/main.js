@@ -28,8 +28,12 @@ $(() => {
     dropdownMenuClick$.subscribe(clearSearch);
     locationDates$.subscribe((data) => {
         $currentLocation.text(data.name);
-        $currentDate.text(data.date);
+        $currentDate.text(formatDate(data.date));
     });
+
+    function formatDate(date) {
+        return date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds();
+    }
 
     function renderMenu(data) {
         $dropdownMenu.empty();
