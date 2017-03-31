@@ -11,6 +11,7 @@ $(() => {
         .map(event => event.target.value)
         .switchMap(fetchLocations);
     const dropdownMenuClick$ = Rx.Observable.fromEvent($dropdownMenu, 'click')
+        .filter(event => event.target.tagName === 'A')
 
     locationSearchInput$.subscribe(renderMenu);
     dropdownMenuClick$.subscribe(data => console.log(data));
