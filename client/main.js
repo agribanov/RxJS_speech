@@ -7,6 +7,7 @@ $(() => {
     const $stopButton = $('#stopButton');
 
     const locationSearchInput$ = Rx.Observable.fromEvent($locationSearch, 'input')
+        .map(event => event.target.value)
     
     locationSearchInput$.subscribe(data => {
         console.log(data);
