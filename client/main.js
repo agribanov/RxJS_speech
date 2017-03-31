@@ -26,7 +26,10 @@ $(() => {
 
     locationSearchInput$.subscribe(renderMenu);
     dropdownMenuClick$.subscribe(clearSearch);
-    locationDates$.subscribe((data) => console.log(data));
+    locationDates$.subscribe((data) => {
+        $currentLocation.text(data.name);
+        $currentDate.text(data.date);
+    });
 
     function renderMenu(data) {
         $dropdownMenu.empty();
