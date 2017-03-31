@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+        .dropdown-menu{
+            top: 30px;
+            left: 30px;
+        }
+    </style>
+    <script src="https://unpkg.com/rxjs/bundles/Rx.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="locationSearch" placeholder="Search for location">
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="well well-lg">
+            <strong id="currentLocation"></strong>
+            <button id="stopButton">Stop</button>
+            <span id="currentDate" class="pull-right"></span>
+        </div>
+    </div>
+
+    <script type="app/template" id="dropdownMenuItem">
+        <li><a href="#" offset="{{offset}}">{{name}}</a></li>
+    </script>
+    <script type="app/template" id="locationBlockItem">
+        
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>
