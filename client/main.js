@@ -12,13 +12,13 @@ $(() => {
         .switchMap(fetchLocations);
     const dropdownMenuClick$ = Rx.Observable.fromEvent($dropdownMenu, 'click')
         .filter(event => event.target.tagName === 'A')
+        .share();
+    const stopButtonClick$ = Rx.Observable.fromEvent($stopButton, 'click');
+    const locationDates$ = dropdownMenuClick$
         .map(event => ({
             name: event.target.innerText,
             offset: event.target.getAttribute('offset')
         }))
-        .share();
-    const stopButtonClick$ = Rx.Observable.fromEvent($stopButton, 'click');
-    const locationDates$ = dropdownMenuClick$
         .switchMap((locationData) => {
             return Rx.Observable.interval(1000)
                 .startWith(getCurrentDate(locationData))
