@@ -9,9 +9,11 @@ $(() => {
     const locationSearchInput$ = Rx.Observable.fromEvent($locationSearch, 'input')
         .debounceTime(300)
         .map(event => event.target.value)
-        .switchMap(fetchLocations)
+        .switchMap(fetchLocations);
+    const dropdownMenuClick$ = Rx.Observable.fromEvent($dropdownMenu, 'click')
 
     locationSearchInput$.subscribe(renderMenu);
+    dropdownMenuClick$.subscribe(data => console.log(data));
 
     function renderMenu(data) {
         $dropdownMenu.empty();
