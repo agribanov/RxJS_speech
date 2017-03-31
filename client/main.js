@@ -15,10 +15,13 @@ $(() => {
         .map(event => ({
             name: event.target.innerText,
             offset: event.target.getAttribute('offset')
-        }))
+        }));
+    const locationDates$ = dropdownMenuClick$
+       
 
     locationSearchInput$.subscribe(renderMenu);
-    dropdownMenuClick$.subscribe(data => console.log(data));
+    dropdownMenuClick$.subscribe(clearSearch);
+    locationDates$.subscribe((data) => console.log(data));
 
     function renderMenu(data) {
         $dropdownMenu.empty();
@@ -33,6 +36,11 @@ $(() => {
             });
             $dropdownMenu.show();
         }
+    }
+
+    function clearSearch() {
+        $locationSearch.val('');
+        $dropdownMenu.hide();
     }
 
     function fetchLocations(text) {
