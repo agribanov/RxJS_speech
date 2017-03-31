@@ -19,10 +19,7 @@ $(() => {
     const locationDates$ = dropdownMenuClick$
         .switchMap((locationData) => {
             return Rx.Observable.interval(1000)
-            // return {
-            //     name: locationData.name,
-            //     date: new Date(Date.now() + 3600000 * locationData.offset)
-            // }
+                .map(() => getCurrentDate(locationData))
         });
 
     locationSearchInput$.subscribe(renderMenu);
@@ -32,20 +29,27 @@ $(() => {
         $currentDate.text(formatDate(data.date));
     });
 
+    function getCurrentDate(locationData) {
+        return {
+            name: locationData.name,
+            date: new Date(Date.now() + 3600000 * locationData.offset)
+        }
+    }
+
     function formatDate(date) {
         return date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds();
     }
 
     function renderMenu(data) {
         $dropdownMenu.empty();
-    
+
         if (!data.length) {
             $dropdownMenu.hide();
         } else {
             data.forEach(location => {
-            $dropdownMenu.append($dropdownMenuItemTemplate.html()
-                .replace('{{name}}', location.name)
-                .replace('{{offset}}', location.offset));
+                $dropdownMenu.append($dropdownMenuItemTemplate.html()
+                    .replace('{{name}}', location.name)
+                    .replace('{{offset}}', location.offset));
             });
             $dropdownMenu.show();
         }
@@ -59,7 +63,7 @@ $(() => {
     function fetchLocations(text) {
         const request =
             fetch('http://localhost:8080/locations?search=' + text)
-            .then(resp => resp.json());
+                .then(resp => resp.json());
 
         return Rx.Observable.fromPromise(request);
     }
