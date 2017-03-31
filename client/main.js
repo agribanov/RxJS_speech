@@ -17,7 +17,12 @@ $(() => {
             offset: event.target.getAttribute('offset')
         }));
     const locationDates$ = dropdownMenuClick$
-       
+        .map((locationData) => {
+            return {
+                name: locationData.name,
+                date: new Date(Date.now() + 3600000 * locationData.offset)
+            }
+        });
 
     locationSearchInput$.subscribe(renderMenu);
     dropdownMenuClick$.subscribe(clearSearch);
