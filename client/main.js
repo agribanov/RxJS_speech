@@ -16,10 +16,13 @@ $(() => {
             name: event.target.innerText,
             offset: event.target.getAttribute('offset')
         }));
+    const stopButtonClick$ = Rx.Observable.fromEvent($stopButton, 'click');
     const locationDates$ = dropdownMenuClick$
         .switchMap((locationData) => {
             return Rx.Observable.interval(1000)
+                .startWith(getCurrentDate(locationData))
                 .map(() => getCurrentDate(locationData))
+                .takeUntil(stopButtonClick$);
         });
 
     locationSearchInput$.subscribe(renderMenu);
