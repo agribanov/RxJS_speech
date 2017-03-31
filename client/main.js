@@ -15,7 +15,8 @@ $(() => {
         .map(event => ({
             name: event.target.innerText,
             offset: event.target.getAttribute('offset')
-        }));
+        }))
+        .share();
     const stopButtonClick$ = Rx.Observable.fromEvent($stopButton, 'click');
     const locationDates$ = dropdownMenuClick$
         .switchMap((locationData) => {
