@@ -11,9 +11,22 @@ $(() => {
         .map(event => event.target.value)
         .switchMap(fetchLocations)
 
-    locationSearchInput$.subscribe(data => {
-        console.log(data);
-    })
+    locationSearchInput$.subscribe(renderMenu);
+
+    function renderMenu(data) {
+        $dropdownMenu.empty();
+    
+        if (!data.length) {
+            $dropdownMenu.hide();
+        } else {
+            data.forEach(location => {
+            $dropdownMenu.append($dropdownMenuItemTemplate.html()
+                .replace('{{name}}', location.name)
+                .replace('{{offset}}', location.offset));
+            });
+            $dropdownMenu.show();
+        }
+    }
 
     function fetchLocations(text) {
         const request =
